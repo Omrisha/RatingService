@@ -29,7 +29,7 @@ namespace RatingService
         {
             services.AddHttpClient<IRatingService, RatingServiceImpl>(c => 
             {
-                c.BaseAddress = new Uri($"https://api.exchangeratesapi.io/latest/");
+                c.BaseAddress = new Uri($"http://api.exchangeratesapi.io/v1/");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
                 c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
             });

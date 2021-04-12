@@ -11,10 +11,12 @@ namespace RatingService.Logic
     public class RatingServiceImpl : IRatingService
     {
         private readonly HttpClient _client;
+        private string _apiKey;
 
         public RatingServiceImpl(HttpClient client)
         {
             _client = client;
+            _apiKey = Environment.GetEnvironmentVariable("ACCESS_KEY");
         }
 
         public async Task<IEnumerable<ConvertRateBoundary>> GetRates(string baseRate, double value, string[] symbols)
@@ -25,7 +27,7 @@ namespace RatingService.Logic
             }
             try
             {
-                var response = await _client.GetAsync($"?base={baseRate}&symbols={string.Join(",", symbols)}");
+                var response = await _client.GetAsync($"latest?access_key={_apiKey}&base={baseRate}&symbols={string.Join(",", symbols)}");
 
                 if (response.IsSuccessStatusCode)
                 {
